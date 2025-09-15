@@ -1,5 +1,6 @@
 package javalab3;
 
+import java.awt.DisplayMode;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,7 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import static javafx.scene.input.KeyCode.A;
+import static javafx.scene.input.KeyCode.Z;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -26,8 +30,6 @@ public class JavaLab3 extends Application {
         launch(args);
     }
 
-    Label messageLabel;
-
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
@@ -42,11 +44,13 @@ public class JavaLab3 extends Application {
         Label lastNameLabel = new Label("Last Name: ");
         Label emailLabel = new Label("Email: ");
         Label passwordLabel = new Label("Password: ");
+        Label messageLabel = new Label();
 
         gridPane.add(firstNameLabel, 0, 0);
         gridPane.add(lastNameLabel, 0, 1);
         gridPane.add(emailLabel, 0, 2);
         gridPane.add(passwordLabel, 0, 3);
+        gridPane.add(messageLabel, 0, 5, 2, 1);
 
         TextField firstNameField = new TextField();
         TextField lastNameField = new TextField();
@@ -87,11 +91,26 @@ public class JavaLab3 extends Application {
                 }
             }
         };
-
+        
+        EventHandler registerHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                if(emailField.getText().contains("@")
+                        && emailField.getText().matches("[a-z0-9A-Z]+@[a-z0-9A-Z]+.[a-z0-9A-Z]")
+                        && (passwordField.getText().matches(".*\\d.*[a-zA-Z].*")
+                        || passwordField.getText().matches(".*[a-zA-Z].*\\d.*"))) {
+                    messageLabel.setText("Welcome");
+                } else {
+                    messageLabel.setText("Error: Invalid email or password");
+                }
+            }
+        };
+        
         firstNameField.setOnKeyReleased(textFieldHandler);
         lastNameField.setOnKeyReleased(textFieldHandler);
         emailField.setOnKeyReleased(textFieldHandler);
         passwordField.setOnKeyReleased(textFieldHandler);
+        registerButton.setOnMouseClicked(registerHandler);
         
         Scene scene = new Scene(root, 300, 275);
         primaryStage.setTitle("User Registration Form");
