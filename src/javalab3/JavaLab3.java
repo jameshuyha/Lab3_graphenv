@@ -59,11 +59,57 @@ public class JavaLab3 extends Application {
         gridPane.add(emailField, 1, 2);
         gridPane.add(passwordField, 1, 3);
         
-//        Button button = new Button("Click Me");
-//        
-//        button.setOnAction(e -> {
-//            messageLabel.setText("Thanks for clicking the button.");
-//        });
+        Button registerButton = new Button("Register");
+        Button clearButton = new Button("Clear");
+        
+        gridPane.add(registerButton, 0, 4);
+        gridPane.add(clearButton, 1, 4);
+        
+        registerButton.setDisable(true);
+        
+        clearButton.setOnMouseClicked(e -> {
+            firstNameField.clear();
+            lastNameField.clear();
+            emailField.clear();
+            passwordField.clear();
+            registerButton.setDisable(true);
+        });
+        
+        firstNameField.setOnKeyReleased(e -> {
+            if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty()
+                && !emailField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
+                registerButton.setDisable(false);
+            } else {
+                registerButton.setDisable(true);
+            }
+        });
+        
+        lastNameField.setOnKeyReleased(e -> {
+            if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty()
+                && !emailField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
+                registerButton.setDisable(false);
+            } else {
+                registerButton.setDisable(true);
+            }
+        });
+        
+        emailField.setOnKeyReleased(e -> {
+            if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty()
+                && !emailField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
+                registerButton.setDisable(false);
+            } else {
+                registerButton.setDisable(true);
+            }
+        });
+        
+        passwordField.setOnKeyReleased(e -> {
+            if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty()
+                && !emailField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
+                registerButton.setDisable(false);
+            } else {
+                registerButton.setDisable(true);
+            }
+        });
         
 //        button.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override
@@ -74,17 +120,17 @@ public class JavaLab3 extends Application {
         
         // Create the scene and set it to the stage
         Scene scene = new Scene(root, 300, 275);
-        primaryStage.setTitle("JavaFX Button Example");
+        primaryStage.setTitle("User Registration Form");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
     
-//    private class ButtonClickHandler implements EventHandler<ActionEvent> {
-//    
-//        @Override
-//        public void handle(ActionEvent t) {
-//            messageLabel.setText("Thanks for clicking the button");
-//        }
-//    }
+    private class textFieldFilledHandler implements EventHandler<ActionEvent> {
+    
+        @Override
+        public void handle(ActionEvent t) {
+            messageLabel.setText("Thanks for clicking the button");
+        }
+    }
 }
  
